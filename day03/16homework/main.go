@@ -41,6 +41,7 @@ func dispatchCoin() (left int) {
 			// if s == "e" || s == "E" {
 			// 	fmt.Println("ok")
 			// }
+
 			switch s {
 			case "e", "E":
 				{

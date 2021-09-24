@@ -123,4 +123,18 @@ func main() {
 		fmt.Println(po2)
 	}
 
+	// map
+
+	m1 := map[int64]string{
+		10010: "哈哈哈",
+		10080: "嘿嘿嘿",
+		10000: "呵呵呵",
+	}
+
+	name1 := m1[2000]
+	fmt.Println(name1) // 取不到就返回value类型的零值
+
+	name2, ok := m1[2000] // ok=true 表示有这个key ok=false 表示没有这个key
+	fmt.Println(name2, ok)
+
 }

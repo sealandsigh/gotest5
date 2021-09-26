@@ -28,6 +28,13 @@ func main() {
 	// now + 1小时
 	fmt.Println(now.Add(24 * time.Hour))
 	// sub 求两个时间差值
+	timeObj1, err := time.Parse("2006-01-02", "2021-09-27")
+	if err != nil {
+		fmt.Printf("parse time failed err:%v\n", err)
+		return
+	}
+	d := now.Sub(timeObj1)
+	fmt.Println(d)
 	// equal 判断两个时间的比较
 	// before 判断哪个时间点在时间之前
 	// after 判断哪个时间在时间之后
@@ -54,4 +61,6 @@ func main() {
 	}
 	fmt.Println(timeObj)
 	fmt.Println(timeObj.Unix())
+	// sleep
+	// time.Sleep(5 * time.Second)
 }

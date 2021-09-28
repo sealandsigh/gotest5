@@ -8,7 +8,17 @@ import (
 	"strings"
 )
 
+// var log Logger // 声明一个全局的接口变量
+
 type LogLevel uint16
+
+type Logger interface {
+	Debug(format string, a ...interface{})
+	Info(format string, a ...interface{})
+	Warning(format string, a ...interface{})
+	Error(format string, a ...interface{})
+	Fatal(format string, a ...interface{})
+}
 
 const (
 	UNKNOWN LogLevel = iota

@@ -9,6 +9,7 @@ import (
 var log mylogger.Logger // 声明一个全局的接口变量
 
 // 测试我们自己写 的日志库
+
 func main() {
 	// 这里还未知为什么consle放终端上面就不执行
 	// log = mylogger.NewConsoleLogger("info") // 终端日志实例

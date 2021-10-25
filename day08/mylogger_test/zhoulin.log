@@ -1,0 +1,264 @@
+[2021-10-25 15:34:10] [ERROR] [main:main.go:26] 这是一条Error日志
+
+[2021-10-25 15:34:10] [INFO] [main:main.go:24] 这是一条Info日志包含a:100 b:周林
+
+[2021-10-25 15:34:10] [FATAL] [main:main.go:27] 这是一条Fatal日志
+
+[2021-10-25 15:34:10] [WARNING] [main:main.go:25] 这是一条Warning日志
+
+[2021-10-25 15:34:12] [INFO] [main:main.go:24] 这是一条Info日志包含a:100 b:周林
+
+[2021-10-25 15:34:12] [ERROR] [main:main.go:26] 这是一条Error日志
+
+[2021-10-25 15:34:12] [FATAL] [main:main.go:27] 这是一条Fatal日志
+
+[2021-10-25 15:34:12] [WARNING] [main:main.go:25] 这是一条Warning日志
+
+[2021-10-25 15:34:14] [ERROR] [main:main.go:26] 这是一条Error日志
+
+[2021-10-25 15:34:14] [INFO] [main:main.go:24] 这是一条Info日志包含a:100 b:周林
+
+[2021-10-25 15:34:14] [FATAL] [main:main.go:27] 这是一条Fatal日志
+
+[2021-10-25 15:34:14] [WARNING] [main:main.go:25] 这是一条Warning日志
+
+[2021-10-25 15:34:16] [INFO] [main:main.go:24] 这是一条Info日志包含a:100 b:周林
+
+[2021-10-25 15:34:16] [ERROR] [main:main.go:26] 这是一条Error日志
+
+[2021-10-25 15:34:16] [FATAL] [main:main.go:27] 这是一条Fatal日志
+
+[2021-10-25 15:34:16] [WARNING] [main:main.go:25] 这是一条Warning日志
+
+[2021-10-25 15:34:18] [WARNING] [main:main.go:25] 这是一条Warning日志
+
+[2021-10-25 15:34:18] [INFO] [main:main.go:24] 这是一条Info日志包含a:100 b:周林
+
+[2021-10-25 15:34:18] [FATAL] [main:main.go:27] 这是一条Fatal日志
+
+[2021-10-25 15:34:18] [ERROR] [main:main.go:26] 这是一条Error日志
+
+[2021-10-25 15:34:20] [WARNING] [main:main.go:25] 这是一条Warning日志
+
+[2021-10-25 15:34:20] [FATAL] [main:main.go:27] 这是一条Fatal日志
+
+[2021-10-25 15:34:20] [INFO] [main:main.go:24] 这是一条Info日志包含a:100 b:周林
+
+[2021-10-25 15:34:20] [ERROR] [main:main.go:26] 这是一条Error日志
+
+[2021-10-25 15:34:22] [INFO] [main:main.go:24] 这是一条Info日志包含a:100 b:周林
+
+[2021-10-25 15:34:22] [WARNING] [main:main.go:25] 这是一条Warning日志
+
+[2021-10-25 15:34:22] [ERROR] [main:main.go:26] 这是一条Error日志
+
+[2021-10-25 15:34:22] [FATAL] [main:main.go:27] 这是一条Fatal日志
+
+[2021-10-25 15:34:24] [INFO] [main:main.go:24] 这是一条Info日志包含a:100 b:周林
+
+[2021-10-25 15:34:24] [FATAL] [main:main.go:27] 这是一条Fatal日志
+
+[2021-10-25 15:34:24] [WARNING] [main:main.go:25] 这是一条Warning日志
+
+[2021-10-25 15:34:24] [ERROR] [main:main.go:26] 这是一条Error日志
+
+[2021-10-25 15:34:26] [INFO] [main:main.go:24] 这是一条Info日志包含a:100 b:周林
+
+[2021-10-25 15:34:26] [ERROR] [main:main.go:26] 这是一条Error日志
+
+[2021-10-25 15:34:26] [FATAL] [main:main.go:27] 这是一条Fatal日志
+
+[2021-10-25 15:34:26] [WARNING] [main:main.go:25] 这是一条Warning日志
+
+[2021-10-25 15:34:28] [INFO] [main:main.go:24] 这是一条Info日志包含a:100 b:周林
+
+[2021-10-25 15:34:28] [WARNING] [main:main.go:25] 这是一条Warning日志
+
+[2021-10-25 15:34:28] [FATAL] [main:main.go:27] 这是一条Fatal日志
+
+[2021-10-25 15:34:28] [ERROR] [main:main.go:26] 这是一条Error日志
+
+[2021-10-25 15:34:30] [INFO] [main:main.go:24] 这是一条Info日志包含a:100 b:周林
+
+[2021-10-25 15:34:30] [FATAL] [main:main.go:27] 这是一条Fatal日志
+
+[2021-10-25 15:34:30] [ERROR] [main:main.go:26] 这是一条Error日志
+
+[2021-10-25 15:34:30] [WARNING] [main:main.go:25] 这是一条Warning日志
+
+[2021-10-25 15:34:32] [INFO] [main:main.go:24] 这是一条Info日志包含a:100 b:周林
+
+[2021-10-25 15:34:32] [FATAL] [main:main.go:27] 这是一条Fatal日志
+
+[2021-10-25 15:34:32] [ERROR] [main:main.go:26] 这是一条Error日志
+
+[2021-10-25 15:34:32] [WARNING] [main:main.go:25] 这是一条Warning日志
+
+[2021-10-25 15:34:34] [WARNING] [main:main.go:25] 这是一条Warning日志
+
+[2021-10-25 15:34:34] [ERROR] [main:main.go:26] 这是一条Error日志
+
+[2021-10-25 15:34:34] [INFO] [main:main.go:24] 这是一条Info日志包含a:100 b:周林
+
+[2021-10-25 15:34:34] [FATAL] [main:main.go:27] 这是一条Fatal日志
+
+[2021-10-25 15:34:36] [INFO] [main:main.go:24] 这是一条Info日志包含a:100 b:周林
+
+[2021-10-25 15:34:36] [WARNING] [main:main.go:25] 这是一条Warning日志
+
+[2021-10-25 15:34:36] [ERROR] [main:main.go:26] 这是一条Error日志
+
+[2021-10-25 15:34:36] [FATAL] [main:main.go:27] 这是一条Fatal日志
+
+[2021-10-25 15:34:38] [INFO] [main:main.go:24] 这是一条Info日志包含a:100 b:周林
+
+[2021-10-25 15:34:38] [WARNING] [main:main.go:25] 这是一条Warning日志
+
+[2021-10-25 15:34:38] [ERROR] [main:main.go:26] 这是一条Error日志
+
+[2021-10-25 15:34:38] [FATAL] [main:main.go:27] 这是一条Fatal日志
+
+[2021-10-25 15:38:11] [WARNING] [main:main.go:25] 这是一条Warning日志
+
+[2021-10-25 15:38:11] [INFO] [main:main.go:24] 这是一条Info日志包含a:100 b:周林
+
+[2021-10-25 15:38:11] [FATAL] [main:main.go:27] 这是一条Fatal日志
+
+[2021-10-25 15:38:11] [ERROR] [main:main.go:26] 这是一条Error日志
+
+[2021-10-25 15:38:13] [INFO] [main:main.go:24] 这是一条Info日志包含a:100 b:周林
+
+[2021-10-25 15:38:13] [WARNING] [main:main.go:25] 这是一条Warning日志
+
+[2021-10-25 15:38:13] [ERROR] [main:main.go:26] 这是一条Error日志
+
+[2021-10-25 15:38:13] [FATAL] [main:main.go:27] 这是一条Fatal日志
+
+[2021-10-25 15:38:15] [INFO] [main:main.go:24] 这是一条Info日志包含a:100 b:周林
+
+[2021-10-25 15:38:15] [ERROR] [main:main.go:26] 这是一条Error日志
+
+[2021-10-25 15:38:15] [FATAL] [main:main.go:27] 这是一条Fatal日志
+
+[2021-10-25 15:38:15] [WARNING] [main:main.go:25] 这是一条Warning日志
+
+[2021-10-25 15:38:17] [INFO] [main:main.go:24] 这是一条Info日志包含a:100 b:周林
+
+[2021-10-25 15:38:17] [WARNING] [main:main.go:25] 这是一条Warning日志
+
+[2021-10-25 15:38:17] [FATAL] [main:main.go:27] 这是一条Fatal日志
+
+[2021-10-25 15:38:17] [ERROR] [main:main.go:26] 这是一条Error日志
+
+[2021-10-25 15:38:19] [INFO] [main:main.go:24] 这是一条Info日志包含a:100 b:周林
+
+[2021-10-25 15:38:19] [FATAL] [main:main.go:27] 这是一条Fatal日志
+
+[2021-10-25 15:38:19] [WARNING] [main:main.go:25] 这是一条Warning日志
+
+[2021-10-25 15:38:19] [ERROR] [main:main.go:26] 这是一条Error日志
+
+[2021-10-25 15:38:21] [INFO] [main:main.go:24] 这是一条Info日志包含a:100 b:周林
+
+[2021-10-25 15:38:21] [ERROR] [main:main.go:26] 这是一条Error日志
+
+[2021-10-25 15:38:21] [FATAL] [main:main.go:27] 这是一条Fatal日志
+
+[2021-10-25 15:38:21] [WARNING] [main:main.go:25] 这是一条Warning日志
+
+[2021-10-25 15:40:20] [WARNING] [main:main.go:25] 这是一条Warning日志
+
+[2021-10-25 15:40:20] [ERROR] [main:main.go:26] 这是一条Error日志
+
+[2021-10-25 15:40:20] [INFO] [main:main.go:24] 这是一条Info日志包含a:100 b:周林
+
+[2021-10-25 15:40:20] [FATAL] [main:main.go:27] 这是一条Fatal日志
+
+[2021-10-25 15:40:22] [INFO] [main:main.go:24] 这是一条Info日志包含a:100 b:周林
+
+[2021-10-25 15:40:22] [WARNING] [main:main.go:25] 这是一条Warning日志
+
+[2021-10-25 15:40:22] [ERROR] [main:main.go:26] 这是一条Error日志
+
+[2021-10-25 15:40:22] [FATAL] [main:main.go:27] 这是一条Fatal日志
+
+[2021-10-25 15:40:24] [INFO] [main:main.go:24] 这是一条Info日志包含a:100 b:周林
+
+[2021-10-25 15:40:24] [WARNING] [main:main.go:25] 这是一条Warning日志
+
+[2021-10-25 15:40:24] [FATAL] [main:main.go:27] 这是一条Fatal日志
+
+[2021-10-25 15:40:24] [ERROR] [main:main.go:26] 这是一条Error日志
+
+[2021-10-25 15:40:26] [INFO] [main:main.go:24] 这是一条Info日志包含a:100 b:周林
+
+[2021-10-25 15:40:26] [ERROR] [main:main.go:26] 这是一条Error日志
+
+[2021-10-25 15:40:26] [FATAL] [main:main.go:27] 这是一条Fatal日志
+
+[2021-10-25 15:40:26] [WARNING] [main:main.go:25] 这是一条Warning日志
+
+[2021-10-25 15:40:28] [INFO] [main:main.go:24] 这是一条Info日志包含a:100 b:周林
+
+[2021-10-25 15:40:28] [ERROR] [main:main.go:26] 这是一条Error日志
+
+[2021-10-25 15:40:28] [FATAL] [main:main.go:27] 这是一条Fatal日志
+
+[2021-10-25 15:40:28] [WARNING] [main:main.go:25] 这是一条Warning日志
+
+[2021-10-25 15:40:30] [INFO] [main:main.go:24] 这是一条Info日志包含a:100 b:周林
+
+[2021-10-25 15:40:30] [ERROR] [main:main.go:26] 这是一条Error日志
+
+[2021-10-25 15:40:30] [WARNING] [main:main.go:25] 这是一条Warning日志
+
+[2021-10-25 15:40:30] [FATAL] [main:main.go:27] 这是一条Fatal日志
+
+[2021-10-25 15:40:32] [INFO] [main:main.go:24] 这是一条Info日志包含a:100 b:周林
+
+[2021-10-25 15:40:32] [WARNING] [main:main.go:25] 这是一条Warning日志
+
+[2021-10-25 15:40:32] [ERROR] [main:main.go:26] 这是一条Error日志
+
+[2021-10-25 15:40:32] [FATAL] [main:main.go:27] 这是一条Fatal日志
+
+[2021-10-25 15:40:54] [INFO] [main:main.go:24] 这是一条Info日志包含a:100 b:周林
+
+[2021-10-25 15:40:54] [WARNING] [main:main.go:25] 这是一条Warning日志
+
+[2021-10-25 15:40:54] [ERROR] [main:main.go:26] 这是一条Error日志
+
+[2021-10-25 15:40:54] [FATAL] [main:main.go:27] 这是一条Fatal日志
+
+[2021-10-25 15:40:56] [INFO] [main:main.go:24] 这是一条Info日志包含a:100 b:周林
+
+[2021-10-25 15:40:56] [WARNING] [main:main.go:25] 这是一条Warning日志
+
+[2021-10-25 15:40:56] [ERROR] [main:main.go:26] 这是一条Error日志
+
+[2021-10-25 15:40:56] [FATAL] [main:main.go:27] 这是一条Fatal日志
+
+[2021-10-25 15:40:58] [WARNING] [main:main.go:25] 这是一条Warning日志
+
+[2021-10-25 15:40:58] [INFO] [main:main.go:24] 这是一条Info日志包含a:100 b:周林
+
+[2021-10-25 15:40:58] [ERROR] [main:main.go:26] 这是一条Error日志
+
+[2021-10-25 15:40:58] [FATAL] [main:main.go:27] 这是一条Fatal日志
+
+[2021-10-25 15:41:00] [WARNING] [main:main.go:25] 这是一条Warning日志
+
+[2021-10-25 15:41:00] [ERROR] [main:main.go:26] 这是一条Error日志
+
+[2021-10-25 15:41:00] [FATAL] [main:main.go:27] 这是一条Fatal日志
+
+[2021-10-25 15:41:00] [INFO] [main:main.go:24] 这是一条Info日志包含a:100 b:周林
+
+[2021-10-25 15:41:02] [INFO] [main:main.go:24] 这是一条Info日志包含a:100 b:周林
+
+[2021-10-25 15:41:02] [WARNING] [main:main.go:25] 这是一条Warning日志
+
+[2021-10-25 15:41:02] [ERROR] [main:main.go:26] 这是一条Error日志
+
+[2021-10-25 15:41:02] [FATAL] [main:main.go:27] 这是一条Fatal日志
+

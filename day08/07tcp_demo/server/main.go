@@ -11,6 +11,7 @@ import (
 // tcp server端
 
 func processConn(conn net.Conn) {
+	defer conn.Close()
 	// 3 与客户端通信
 	var tmp [128]byte
 	reader := bufio.NewReader(os.Stdin)

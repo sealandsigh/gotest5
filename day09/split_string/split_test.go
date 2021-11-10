@@ -67,7 +67,7 @@ func TestSplit(t *testing.T) {
 		"case_1": {"babcbef", "b", []string{"", "a", "c", "ef"}},
 		"case_2": {"a:b:c", ":", []string{"a", "b", "c"}},
 		"case_3": {"abcef", "bc", []string{"a", "ef"}},
-		"case_4": {"沙河有沙又有河", "有", []string{"沙河", "沙又", "hehe"}},
+		"case_4": {"沙河有沙又有河", "有", []string{"沙河", "沙又", "河"}},
 	}
 
 	for name, tc := range testGroup {
@@ -77,5 +77,12 @@ func TestSplit(t *testing.T) {
 				t.Fatalf("want:%#v got:%#v\n", tc.want, got)
 			}
 		})
+	}
+}
+
+// 基准测试
+func BenchmarkSplittest(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		Split("a:b:c", ":")
 	}
 }

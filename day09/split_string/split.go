@@ -24,3 +24,11 @@ func Split(str string, sep string) []string {
 	ret = append(ret, str)
 	return ret
 }
+
+// Fib 是一个计算第n个斐波那契的函数
+func Fib(n int) int {
+	if n < 2 {
+		return n
+	}
+	return Fib(n-1) + Fib(n-2)
+}

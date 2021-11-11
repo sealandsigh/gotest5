@@ -11,15 +11,16 @@ import (
 
 // 一段有问题的代码
 func logicCode() {
-	var c chan int
-	for {
-		select {
-		case v := <-c:
-			fmt.Printf("recv from chan, value:%v\n", v)
-		default:
+	// 打开下面注释的代码用于模拟一段有问题的代码，次注释只是为了代码中不显示错误
+	// var c chan int
+	// for {
+	// 	select {
+	// 	case v := <-c:
+	// 		fmt.Printf("recv from chan, value:%v\n", v)
+	// 		default:
 
-		}
-	}
+	// 	}
+	// }
 }
 
 func main() {

@@ -49,8 +49,26 @@ func queryOne(id int) {
 	fmt.Printf("u1:%#v\n", u1)
 }
 
-func insert() {
-
+func queryMore(n int) {
+	//1 写查询单条记录的sql语句
+	sqlStr := `select id,name,age from user where id>?;`
+	//2 执行
+	rows, err := db.Query(sqlStr, n)
+	if err != nil {
+		fmt.Printf("exec %s query failed, err:%v\n", sqlStr, err)
+		return
+	}
+	//3 一定要关闭rows
+	defer rows.Close()
+	//4 循环取值
+	for rows.Next() {
+		var u1 user
+		err := rows.Scan(&u1.id, &u1.name, &u1.age)
+		if err != nil {
+			fmt.Printf("scan failed,err:%v\n", err)
+		}
+		fmt.Printf("u1:%v\n", u1)
+	}
 }
 
 func main() {
@@ -59,5 +77,6 @@ func main() {
 		fmt.Printf("init DB failed,err:%v", err)
 	}
 	fmt.Println("连接数据库成功！")
-	queryOne(2)
+	// queryOne(2)
+	queryMore(1)
 }

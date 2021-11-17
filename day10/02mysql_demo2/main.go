@@ -71,6 +71,74 @@ func queryMore(n int) {
 	}
 }
 
+func insert() {
+	//1 写SQL语句
+	sqlStr := `insert into user(name,age) values("图朝阳",28)`
+	//2 exec
+	ret, err := db.Exec(sqlStr)
+	if err != nil {
+		fmt.Printf("insert failed,err:%v\n", err)
+		return
+	}
+	// 如果是插入数据的操作，能够拿到插入数据的id
+	id, err := ret.LastInsertId()
+	if err != nil {
+		fmt.Printf("get id failed,err:%v\n", err)
+		return
+	}
+	fmt.Println("id:", id)
+}
+
+func updateRow(newAage int, id int) {
+	sqlStr := `update user set age=? where id =?`
+	ret, err := db.Exec(sqlStr, newAage, id)
+	if err != nil {
+		fmt.Printf("update failed,err:%v\n", err)
+		return
+	}
+	n, err := ret.RowsAffected()
+	if err != nil {
+		fmt.Printf("get id failed,err:%v\n", err)
+		return
+	}
+	fmt.Printf("更新了%d行数据\n", n)
+}
+
+func deleteRow(id int) {
+	sqlStr := `delete from user where id=?`
+	ret, err := db.Exec(sqlStr, id)
+	if err != nil {
+		fmt.Printf("delete failed,err:%v\n", err)
+		return
+	}
+	n, err := ret.RowsAffected()
+	if err != nil {
+		fmt.Printf("get id failed,err:%v\n", err)
+		return
+	}
+	fmt.Printf("删除了%d行数据\n", n)
+}
+
+func prepareInsert() {
+	sqlStr := `insert into user(name,age) values(?,?)`
+	stmt, err := db.Prepare(sqlStr) // 把SQL语句先发给MySQL预处理一下
+	if err != nil {
+		fmt.Printf("prepare failed,err:%v\n", err)
+		return
+	}
+	defer stmt.Close()
+	// 后续只需要拿到stmt去执行一些操作
+	var m = map[string]int{
+		"六七强": 30,
+		"王相机": 32,
+		"天悦":  72,
+		"百汇姐": 40,
+	}
+	for k, v := range m {
+		stmt.Exec(k, v) // 后续只需要传值
+	}
+}
+
 func main() {
 	err := initDB()
 	if err != nil {
@@ -78,5 +146,9 @@ func main() {
 	}
 	fmt.Println("连接数据库成功！")
 	// queryOne(2)
-	queryMore(1)
+	// queryMore(1)
+	// insert()
+	// updateRow(8999, 3)
+	// deleteRow(1)
+	prepareInsert()
 }

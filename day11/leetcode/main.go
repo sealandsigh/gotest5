@@ -21,15 +21,15 @@ func reverseList(head *ListMode) *ListMode {
 
 func main() {
 	head := &ListMode{
-		Val: 1,
+		Val: 5,
 		Next: &ListMode{
-			Val: 2,
+			Val: 4,
 			Next: &ListMode{
 				Val: 3,
 				Next: &ListMode{
-					Val: 4,
+					Val: 2,
 					Next: &ListMode{
-						Val:  5,
+						Val:  1,
 						Next: nil,
 					},
 				},

@@ -10,8 +10,23 @@ import (
 // 为什么需要context?
 var wg sync.WaitGroup
 
+func f2(ctx context.Context) {
+	defer wg.Done()
+FORLOOP:
+	for {
+		fmt.Println("jieqiong")
+		time.Sleep(time.Millisecond * 500)
+		select {
+		case <-ctx.Done():
+			break FORLOOP
+		default:
+		}
+	}
+}
+
 func f(ctx context.Context) {
 	defer wg.Done()
+	go f2(ctx)
 FORLOOP:
 	for {
 		fmt.Println("朱嘉骏")

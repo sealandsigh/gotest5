@@ -6,11 +6,14 @@ import (
 
 	"github.com/sealandsigh/gotest5/logagent/kafka"
 	"github.com/sealandsigh/gotest5/logagent/taillog"
+	"gopkg.in/ini.v1"
 )
 
 // logAgent入口程序
 
 func run() {
+	// 0. 加载配置文件
+	cfg, err := ini.Load("./conf/config.ini")
 	// 1. 读取日志
 	for {
 		select {

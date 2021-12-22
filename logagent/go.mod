@@ -5,7 +5,6 @@ go 1.17
 require (
 	github.com/Shopify/sarama v1.30.1
 	github.com/hpcloud/tail v1.0.0
-	gopkg.in/ini.v1 v1.66.2
 )
 
 require (
@@ -15,7 +14,7 @@ require (
 	github.com/eapache/queue v1.1.0 // indirect
 	github.com/fsnotify/fsnotify v1.5.1 // indirect
 	github.com/golang/snappy v0.0.4 // indirect
-	github.com/hashicorp/go-uuid v1.0.2 // indirect
+	github.com/hashicorp/go-uuid v1.0.2 //ndirect
 	github.com/jcmturner/aescts/v2 v2.0.0 // indirect
 	github.com/jcmturner/dnsutils/v2 v2.0.0 // indirect
 	github.com/jcmturner/gofork v1.0.0 // indirect
@@ -28,5 +27,6 @@ require (
 	golang.org/x/net v0.0.0-20210917221730-978cfadd31cf // indirect
 	golang.org/x/sys v0.0.0-20210630005230-0f9fa26af87c // indirect
 	gopkg.in/fsnotify.v1 v1.4.7 // indirect
+	gopkg.in/ini.v1 v1.66.2 // indirect
 	gopkg.in/tomb.v1 v1.0.0-20141024135613-dd632973f1e7 // indirect
 )

@@ -20,11 +20,11 @@ func Init(addrs []string) (err error) {
 	config.Producer.RequiredAcks = sarama.WaitForLocal
 	config.Producer.Partitioner = sarama.NewRandomPartitioner // 新选出⼀一个 partition
 	config.Producer.Return.Successes = true                   // 成功交付的消息将在success channel返回
-	config.Version = sarama.V0_11_0_2                         //kafka版本号
-	config.Net.SASL.Enable = true
-	config.Net.SASL.Mechanism = "PLAIN"
-	config.Net.SASL.User = "xxxx"
-	config.Net.SASL.Password = "xxxx"
+	// config.Version = sarama.V0_11_0_2                         //kafka版本号
+	// config.Net.SASL.Enable = true
+	// config.Net.SASL.Mechanism = "PLAIN"
+	// config.Net.SASL.User = "xxxx"
+	// config.Net.SASL.Password = "xxxx"
 
 	// 连接kafka
 	client, err = sarama.NewSyncProducer(addrs, config)

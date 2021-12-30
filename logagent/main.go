@@ -58,6 +58,17 @@ func main() {
 		return
 	}
 	fmt.Println("init etcd success.")
+	// 2.1 从etcd获取日志收集项目的配置信息
+	logEntryConf, err := etcd.GetConf("/xxx")
+	if err != nil {
+		fmt.Printf("etcd.getconf failed, err:%v\n", err)
+		return
+	}
+	fmt.Printf("get conf from etcd success, %v\n", logEntryConf)
+	for index, value := range logEntryConf {
+		fmt.Printf("index:%v value:%v\n", index, value)
+	}
+	// 2.2 派一个哨兵去监视日志收集项目的变化(及时通知我的logagent实现热加载配置)
 
 	// 2. 打开日志文件准备收集日志
 	// err = taillog.Init(cfg.TaillogConf.FileName)

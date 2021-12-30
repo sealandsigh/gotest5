@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"log"
 	"time"
 
@@ -19,13 +20,12 @@ func main() {
 	defer cli.Close()
 
 	// watch
-	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
 	// 派一个哨兵监视 sample_key这个key的变化（新增删除修改）
-	ch := cli.Watch(ctx, "sample_key")
+	ch := cli.Watch(context.Background(), "sample_key")
 	// 从通道尝试取值(监视的信息)
 	for wresp := range ch {
-		for wresp.Events {
-
+		for _, ev := range wresp.Events {
+			fmt.Printf("Type:%v key:%v value:%v\n", ev.Type, string(ev.Kv.Key), string(ev.Kv.Value))
 		}
 	}
 

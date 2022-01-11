@@ -16,9 +16,10 @@ var (
 	cli *clientv3.Client
 )
 
+// 需要收集的日志的配置信息
 type LogEntry struct {
-	Path  string `json:string`
-	Topic string `json:string`
+	Path  string `json:string` //日志放的路径
+	Topic string `json:string` // 日志要发往kafka中的哪个topic
 }
 
 // 初始化etcd的函数

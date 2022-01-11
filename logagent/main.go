@@ -59,7 +59,7 @@ func main() {
 	}
 	fmt.Println("init etcd success.")
 	// 2.1 从etcd获取日志收集项目的配置信息
-	logEntryConf, err := etcd.GetConf("/xxx")
+	logEntryConf, err := etcd.GetConf(cfg.EtcdConf.Key)
 	if err != nil {
 		fmt.Printf("etcd.getconf failed, err:%v\n", err)
 		return

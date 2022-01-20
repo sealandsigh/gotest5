@@ -8,6 +8,7 @@ import (
 	"github.com/sealandsigh/gotest5/logagent/conf"
 	"github.com/sealandsigh/gotest5/logagent/etcd"
 	"github.com/sealandsigh/gotest5/logagent/kafka"
+	"github.com/sealandsigh/gotest5/logagent/taillog"
 	"gopkg.in/ini.v1"
 )
 
@@ -45,7 +46,7 @@ func main() {
 		os.Exit(1)
 	}
 	// 1. 初始化kafka连接
-	err = kafka.Init([]string{cfg.KafkaConf.Address})
+	err = kafka.Init([]string{cfg.KafkaConf.Address}, cfg.KafkaConf.ChanMaxSize)
 	if err != nil {
 		fmt.Printf("init kafka failed, err:%v\n", err)
 		return
@@ -69,6 +70,15 @@ func main() {
 		fmt.Printf("index:%v value:%v\n", index, value)
 	}
 	// 2.2 派一个哨兵去监视日志收集项目的变化(及时通知我的logagent实现热加载配置)
+
+	// 3.1 循环每一个日志收集项，创建TailOBJ
+	// for _, logEntry := range logEntryConf {
+	// 	// conf: *etcd.LogEntry
+	// 	// logEntry.Path: 要收集的日志文件的路径
+	// 	taillog.NewTailTask(logEntry.Path, logEntry.Topic)
+	// }
+	// 3 收集日志发往kafka
+	taillog.Init(logEntryConf)
 
 	// 2. 打开日志文件准备收集日志
 	// err = taillog.Init(cfg.TaillogConf.FileName)

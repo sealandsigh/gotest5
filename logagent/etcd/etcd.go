@@ -52,3 +52,26 @@ func GetConf(key string) (LogEntryConf []*LogEntry, err error) {
 	}
 	return
 }
+
+func WatchConf(key string, newConfCh chan<- []*LogEntry) {
+	ch := cli.Watch(context.Background(), key)
+	// 从通道尝试取值(监视的信息)
+	for wresp := range ch {
+		for _, ev := range wresp.Events {
+			fmt.Printf("Type:%v key:%v value:%v\n", ev.Type, string(ev.Kv.Key), string(ev.Kv.Value))
+			// 通知别人taillog.tskMgr
+			// 1. 先判断操作的类型
+			var newConf []*LogEntry
+			if ev.Type != clientv3.EventTypeDelete {
+				// 如果是删除操作，手动传递一个空配置项
+				err := json.Unmarshal(ev.Kv.Value, &newConf)
+				if err != nil {
+					fmt.Printf("unmarshal failed, err:%v\n", err)
+					continue
+				}
+			}
+			fmt.Printf("get new conf:%v\n", newConf)
+			newConfCh <- newConf
+		}
+	}
+}

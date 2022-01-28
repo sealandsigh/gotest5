@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"os"
+	"sync"
 	"time"
 
 	"github.com/sealandsigh/gotest5/logagent/conf"
@@ -66,10 +67,10 @@ func main() {
 		return
 	}
 	fmt.Printf("get conf from etcd success, %v\n", logEntryConf)
+	// 2.2 派一个哨兵去监视日志收集项目的变化(及时通知我的logagent实现热加载配置)
 	for index, value := range logEntryConf {
 		fmt.Printf("index:%v value:%v\n", index, value)
 	}
-	// 2.2 派一个哨兵去监视日志收集项目的变化(及时通知我的logagent实现热加载配置)
 
 	// 3.1 循环每一个日志收集项，创建TailOBJ
 	// for _, logEntry := range logEntryConf {
@@ -78,7 +79,13 @@ func main() {
 	// 	taillog.NewTailTask(logEntry.Path, logEntry.Topic)
 	// }
 	// 3 收集日志发往kafka
-	taillog.Init(logEntryConf)
+	taillog.Init(logEntryConf) // 因为newConfChan访问了tskMgr的newConfChan,这个channel是在taillog.Init(logEntryConf)执行的初始化
+
+	newConfChan := taillog.NewConfChan()
+	var wg sync.WaitGroup
+	wg.Add(1)
+	go etcd.WatchConf(cfg.EtcdConf.Key, newConfChan)
+	wg.Wait()
 
 	// 2. 打开日志文件准备收集日志
 	// err = taillog.Init(cfg.TaillogConf.FileName)

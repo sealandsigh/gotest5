@@ -17,7 +17,9 @@ func ExampleKV_put(cli *clientv3.Client) {
 	// value := `[{"path":"/tmp/nginx.log","topic":"web_log"},{"path":"/tmp/redis.log","topic":"redis_log"},{"path":"/tmp/mysql.log","topic":"mysql_log"}]`
 	// etcd put 2
 	value := `[{"path":"/tmp/nginx.log","topic":"web_log"},{"path":"/tmp/redis.log","topic":"redis_log"}]`
-	_, err := cli.Put(ctx, "/logagent/collect_config", value)
+	// _, err := cli.Put(ctx, "/logagent/collect_config", value)
+	// etcd put ip
+	_, err := cli.Put(ctx, "/logagent/192.168.31.40/collect_config", value)
 	cancel()
 	if err != nil {
 		log.Fatal(err)

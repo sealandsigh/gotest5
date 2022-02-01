@@ -10,6 +10,7 @@ import (
 	"github.com/sealandsigh/gotest5/logagent/etcd"
 	"github.com/sealandsigh/gotest5/logagent/kafka"
 	"github.com/sealandsigh/gotest5/logagent/taillog"
+	"github.com/sealandsigh/gotest5/logagent/utils"
 	"gopkg.in/ini.v1"
 )
 
@@ -60,8 +61,14 @@ func main() {
 		return
 	}
 	fmt.Println("init etcd success.")
+	// 为了实现每个logagent都拉取自己独立的配置，所以要以自己的ip地址进行区分
+	ipstr, err := utils.GetOutboundIP()
+	if err != nil {
+		panic(err)
+	}
+	etcdConfKey := fmt.Sprintf(cfg.EtcdConf.Key, ipstr)
 	// 2.1 从etcd获取日志收集项目的配置信息
-	logEntryConf, err := etcd.GetConf(cfg.EtcdConf.Key)
+	logEntryConf, err := etcd.GetConf(etcdConfKey)
 	if err != nil {
 		fmt.Printf("etcd.getconf failed, err:%v\n", err)
 		return
@@ -84,7 +91,7 @@ func main() {
 	newConfChan := taillog.NewConfChan()
 	var wg sync.WaitGroup
 	wg.Add(1)
-	go etcd.WatchConf(cfg.EtcdConf.Key, newConfChan)
+	go etcd.WatchConf(etcdConfKey, newConfChan)
 	wg.Wait()
 
 	// 2. 打开日志文件准备收集日志

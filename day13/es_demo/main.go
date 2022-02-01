@@ -18,7 +18,8 @@ type Person struct {
 }
 
 func main() {
-	client, err := elastic.NewClient(elastic.SetURL("http://xxx:9200"), elastic.SetBasicAuth("elastic", "xxx"))
+	// client, err := elastic.NewClient(elastic.SetURL("http://xxx:9200"), elastic.SetBasicAuth("elastic", "xxx"))
+	client, err := elastic.NewClient(elastic.SetURL("http://localhost:9200"))
 	if err != nil {
 		// Handle error
 		panic(err)

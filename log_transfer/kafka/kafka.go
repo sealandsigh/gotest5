@@ -41,6 +41,10 @@ func Init(addrs []string, topic string) error {
 			for msg := range pc.Messages() {
 				fmt.Printf("Partition:%d Offset:%d Key:%v Value:%v \n", msg.Partition, msg.Offset, msg.Key, string(msg.Value))
 				// 直接发往es
+				// 另一种非强制解析json的方式
+				// ld := map[string]interface{} {
+				// 	"data": string(msg.Value),
+				// }
 				var ld = new(LogData)
 				err = json.Unmarshal(msg.Value, ld)
 				if err != nil {

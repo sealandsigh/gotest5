@@ -24,7 +24,7 @@ func main() {
 	// 1 初始化ES
 	// 1.1 初始化一个ES连接的client
 	// 1.2 对外提供一个往ES写入数据的一个函数
-	err = es.Init(cfg.ESCfg.Address)
+	err = es.Init(cfg.ESCfg.Address, cfg.ESCfg.ChanSize, cfg.ESCfg.Nums)
 	if err != nil {
 		fmt.Printf("init es client failed, err:%v\n", err)
 		return

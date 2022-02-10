@@ -1,7 +1,6 @@
 package kafka
 
 import (
-	"encoding/json"
 	"fmt"
 
 	"github.com/Shopify/sarama"
@@ -9,11 +8,6 @@ import (
 )
 
 // 初始化kafka消费者，从kafka取数据发往es
-
-// LogData..
-type LogData struct {
-	data string `json:"data"`
-}
 
 // Init 初始化client
 func Init(addrs []string, topic string) error {
@@ -42,16 +36,19 @@ func Init(addrs []string, topic string) error {
 				fmt.Printf("Partition:%d Offset:%d Key:%v Value:%v \n", msg.Partition, msg.Offset, msg.Key, string(msg.Value))
 				// 直接发往es
 				// 另一种非强制解析json的方式
-				// ld := map[string]interface{} {
-				// 	"data": string(msg.Value),
-				// }
-				var ld = new(LogData)
-				err = json.Unmarshal(msg.Value, ld)
+				ld := es.LogData{
+					Topic: topic,
+					Data:  string(msg.Value),
+				}
+				// var ld = new(es.LogData)
+				// err = json.Unmarshal(msg.Value, ld)
 				if err != nil {
 					fmt.Printf("unmarshal failed, err:%v\n", err)
 					continue
 				}
-				es.SendToES(topic, ld)
+				// es.SendToES(topic, ld)
+				// 优化一下，直接放到一个chan中
+				es.SendToESChan(&ld)
 			}
 		}(pc)
 	}

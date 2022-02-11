@@ -15,5 +15,8 @@ func main() {
 		c.String(http.StatusOK, "hello world!")
 	})
 	// 3. 监听端口，默认在8080
-	r.Run(":8100")
+	err := r.Run(":8100")
+	if err != nil {
+		return
+	}
 }

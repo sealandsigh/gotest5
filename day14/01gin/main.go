@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 	"github.com/gin-gonic/gin"
-	"log"
+	"net/http"
 )
 
 // gin的helloWorld
@@ -74,18 +74,49 @@ import (
 //	}
 //}
 
-// upload
+//// upload 单文件提交
+//func main() {
+//	r := gin.Default()
+//	// url参数
+//	// 限制表达上传大小 8MB, 默认为32MB
+//	r.MaxMultipartMemory = 8 << 20
+//	r.POST("/upload", func(c *gin.Context) {
+//		// 表单取文件
+//		file, _ := c.FormFile("file")
+//		log.Println(file.Filename)
+//		// 传到项目根目录,名字就用本身的
+//		c.SaveUploadedFile(file, file.Filename)
+//		// 打印信息
+//		c.String(200, fmt.Sprintf("'%s' upload!", file.Filename))
+//	})
+//	err := r.Run(":8100")
+//	if err != nil {
+//		return
+//	}
+//}
+
+// upload 多文件提交
 func main() {
 	r := gin.Default()
 	// url参数
+	// 限制表达上传大小 8MB, 默认为32MB
+	r.MaxMultipartMemory = 8 << 20
 	r.POST("/upload", func(c *gin.Context) {
-		// 表单取文件
-		file, _ := c.FormFile("file")
-		log.Println(file.Filename)
-		// 传到项目根目录,名字就用本身的
-		c.SaveUploadedFile(file, file.Filename)
-		// 打印信息
-		c.String(200, fmt.Sprintf("'%s' upload!", file.Filename))
+		form, err := c.MultipartForm()
+		if err != nil {
+			c.String(http.StatusBadGateway, fmt.Sprintf("get err %s", err.Error()))
+		}
+		// 获取所有图片
+		files := form.File["files"]
+		// 遍历所有图片
+		for _, file := range files {
+			// 逐个存
+			if err := c.SaveUploadedFile(file, file.Filename); err != nil {
+				c.String(http.StatusBadRequest, fmt.Sprintf("upload error %s", err.Error()))
+				return
+			}
+		}
+		c.String(200, fmt.Sprintf("upload ok %d files", len(files)))
 	})
 	err := r.Run(":8100")
 	if err != nil {

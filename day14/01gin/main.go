@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"github.com/gin-gonic/gin"
-	"net/http"
 )
 
 // gin的helloWorld
@@ -95,31 +94,62 @@ import (
 //	}
 //}
 
-// upload 多文件提交
+//// upload 多文件提交
+//func main() {
+//	r := gin.Default()
+//	// url参数
+//	// 限制表达上传大小 8MB, 默认为32MB
+//	r.MaxMultipartMemory = 8 << 20
+//	r.POST("/upload", func(c *gin.Context) {
+//		form, err := c.MultipartForm()
+//		if err != nil {
+//			c.String(http.StatusBadGateway, fmt.Sprintf("get err %s", err.Error()))
+//		}
+//		// 获取所有图片
+//		files := form.File["files"]
+//		// 遍历所有图片
+//		for _, file := range files {
+//			// 逐个存
+//			if err := c.SaveUploadedFile(file, file.Filename); err != nil {
+//				c.String(http.StatusBadRequest, fmt.Sprintf("upload error %s", err.Error()))
+//				return
+//			}
+//		}
+//		c.String(200, fmt.Sprintf("upload ok %d files", len(files)))
+//	})
+//	err := r.Run(":8100")
+//	if err != nil {
+//		return
+//	}
+//}
+
+// 路由组
 func main() {
 	r := gin.Default()
-	// url参数
-	// 限制表达上传大小 8MB, 默认为32MB
-	r.MaxMultipartMemory = 8 << 20
-	r.POST("/upload", func(c *gin.Context) {
-		form, err := c.MultipartForm()
-		if err != nil {
-			c.String(http.StatusBadGateway, fmt.Sprintf("get err %s", err.Error()))
-		}
-		// 获取所有图片
-		files := form.File["files"]
-		// 遍历所有图片
-		for _, file := range files {
-			// 逐个存
-			if err := c.SaveUploadedFile(file, file.Filename); err != nil {
-				c.String(http.StatusBadRequest, fmt.Sprintf("upload error %s", err.Error()))
-				return
-			}
-		}
-		c.String(200, fmt.Sprintf("upload ok %d files", len(files)))
-	})
+	// 路由组1, 处理GET请求
+	v1 := r.Group("/v1")
+	// {} 这个括号是书写规范
+	{
+		v1.GET("/login", login)
+		v1.GET("/submit", submit)
+	}
+	v2 := r.Group("v2")
+	{
+		v2.POST("/login", login)
+		v2.POST("/submit", submit)
+	}
 	err := r.Run(":8100")
 	if err != nil {
 		return
 	}
+}
+
+func login(c *gin.Context) {
+	name := c.DefaultQuery("name", "jack")
+	c.String(200, fmt.Sprintf("hello %s\n", name))
+}
+
+func submit(c *gin.Context) {
+	name := c.DefaultQuery("name", "jack")
+	c.String(200, fmt.Sprintf("hello %s\n", name))
 }

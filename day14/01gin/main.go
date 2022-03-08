@@ -1,9 +1,15 @@
 package main
 
 import (
-	"fmt"
 	"github.com/gin-gonic/gin"
+	"net/http"
 )
+
+type Login struct {
+	// binding: "required" 修饰字段，若接收为空值，则报错，是必须字段
+	User     string `form:"username" json:"user" uri:"user" xml:"user" binding:"required"`
+	Password string `form:"password" json:"password" uri:"password" xml:"password" binding:"required"`
+}
 
 // gin的helloWorld
 
@@ -123,33 +129,67 @@ import (
 //	}
 //}
 
-// 路由组
+//// 路由组
+//func main() {
+//	r := gin.Default()
+//	// 路由组1, 处理GET请求
+//	v1 := r.Group("/v1")
+//	// {} 这个括号是书写规范
+//	{
+//		v1.GET("/login", login)
+//		v1.GET("/submit", submit)
+//	}
+//	v2 := r.Group("v2")
+//	{
+//		v2.POST("/login", login)
+//		v2.POST("/submit", submit)
+//	}
+//	err := r.Run(":8100")
+//	if err != nil {
+//		return
+//	}
+//}
+//
+//func login(c *gin.Context) {
+//	name := c.DefaultQuery("name", "jack")
+//	c.String(200, fmt.Sprintf("hello %s\n", name))
+//}
+//
+//func submit(c *gin.Context) {
+//	name := c.DefaultQuery("name", "jack")
+//	c.String(200, fmt.Sprintf("hello %s\n", name))
+//}
+
+// 路由原理
+// httprouter 会将所有路由规则构造一棵前缀树
+// 例如有 root and as at cn com
+// 树的格式便于查询
+
+// 数据绑定
 func main() {
+	// 1. 创建路由
+	// 默认使用了2个中间件Logger(), Recover()
 	r := gin.Default()
-	// 路由组1, 处理GET请求
-	v1 := r.Group("/v1")
-	// {} 这个括号是书写规范
-	{
-		v1.GET("/login", login)
-		v1.GET("/submit", submit)
-	}
-	v2 := r.Group("v2")
-	{
-		v2.POST("/login", login)
-		v2.POST("/submit", submit)
-	}
+	// json绑定
+	r.POST("loginJSON", func(c *gin.Context) {
+		// 声明接收的变量
+		var json Login
+		// 将request的body中的数据，自动按照json格式解析到结构体
+		if err := c.ShouldBindJSON(&json); err != nil {
+			// 返回错误信息
+			// gin.H 封装了生成json数据的工具
+			c.JSON(http.StatusBadGateway, gin.H{"error": err.Error()})
+			return
+		}
+		// 判断用户名密码是否正确
+		if json.User != "root" || json.Password != "admin" {
+			c.JSON(http.StatusBadGateway, gin.H{"status": "304"})
+			return
+		}
+		c.JSON(http.StatusOK, gin.H{"status": "200"})
+	})
 	err := r.Run(":8100")
 	if err != nil {
 		return
 	}
-}
-
-func login(c *gin.Context) {
-	name := c.DefaultQuery("name", "jack")
-	c.String(200, fmt.Sprintf("hello %s\n", name))
-}
-
-func submit(c *gin.Context) {
-	name := c.DefaultQuery("name", "jack")
-	c.String(200, fmt.Sprintf("hello %s\n", name))
 }

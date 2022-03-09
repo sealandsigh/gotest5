@@ -165,24 +165,53 @@ type Login struct {
 // 例如有 root and as at cn com
 // 树的格式便于查询
 
-// 数据绑定
+//// 数据绑定,以下是json数据绑定方式
+//func main() {
+//	// 1. 创建路由
+//	// 默认使用了2个中间件Logger(), Recover()
+//	r := gin.Default()
+//	// json绑定
+//	r.POST("loginJSON", func(c *gin.Context) {
+//		// 声明接收的变量
+//		var json Login
+//		// 将request的body中的数据，自动按照json格式解析到结构体
+//		if err := c.ShouldBindJSON(&json); err != nil {
+//			// 返回错误信息
+//			// gin.H 封装了生成json数据的工具
+//			c.JSON(http.StatusBadGateway, gin.H{"error": err.Error()})
+//			return
+//		}
+//		// 判断用户名密码是否正确
+//		if json.User != "root" || json.Password != "admin" {
+//			c.JSON(http.StatusBadGateway, gin.H{"status": "304"})
+//			return
+//		}
+//		c.JSON(http.StatusOK, gin.H{"status": "200"})
+//	})
+//	err := r.Run(":8100")
+//	if err != nil {
+//		return
+//	}
+//}
+
+// 数据绑定,以下是form数据绑定方式
 func main() {
 	// 1. 创建路由
 	// 默认使用了2个中间件Logger(), Recover()
 	r := gin.Default()
 	// json绑定
-	r.POST("loginJSON", func(c *gin.Context) {
+	r.POST("loginForm", func(c *gin.Context) {
 		// 声明接收的变量
-		var json Login
+		var form Login
 		// 将request的body中的数据，自动按照json格式解析到结构体
-		if err := c.ShouldBindJSON(&json); err != nil {
+		if err := c.Bind(&form); err != nil {
 			// 返回错误信息
 			// gin.H 封装了生成json数据的工具
 			c.JSON(http.StatusBadGateway, gin.H{"error": err.Error()})
 			return
 		}
 		// 判断用户名密码是否正确
-		if json.User != "root" || json.Password != "admin" {
+		if form.User != "root" || form.Password != "admin" {
 			c.JSON(http.StatusBadGateway, gin.H{"status": "304"})
 			return
 		}

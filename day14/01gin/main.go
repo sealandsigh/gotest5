@@ -2,7 +2,8 @@ package main
 
 import (
 	"github.com/gin-gonic/gin"
-	"net/http"
+	"log"
+	"time"
 )
 
 type Login struct {
@@ -324,15 +325,44 @@ type Login struct {
 //	}
 //}
 
-// 重定向
+//// 重定向
+//func main() {
+//	// 1. 创建路由
+//	// 默认使用了2个中间件Logger(), Recover()
+//	r := gin.Default()
+//
+//	r.GET("/redirect", func(c *gin.Context) {
+//		c.Redirect(http.StatusMovedPermanently, "http://www.baidu.com")
+//	})
+//	err := r.Run(":8100")
+//	if err != nil {
+//		return
+//	}
+//}
+
+// 异步和同步
+// goroutine 机制可以方便的实现异步处理
+// 另外，在启动新的groutine时，不应该使用原始的 上下文，必须使用它的只读副本
 func main() {
 	// 1. 创建路由
 	// 默认使用了2个中间件Logger(), Recover()
 	r := gin.Default()
-
-	r.GET("/redirect", func(c *gin.Context) {
-		c.Redirect(http.StatusMovedPermanently, "http://www.baidu.com")
+	// 1. 异步
+	r.GET("/long_async", func(c *gin.Context) {
+		// 需要搞一个副本
+		copyContext := c.Copy()
+		// 异步处理
+		go func() {
+			time.Sleep(3 * time.Second)
+			log.Println("异步执行" + copyContext.Request.URL.Path)
+		}()
 	})
+	// 2. 同步
+	r.GET("/long_sync", func(c *gin.Context) {
+		time.Sleep(3 * time.Second)
+		log.Println("同步执行" + c.Request.URL.Path)
+	})
+
 	err := r.Run(":8100")
 	if err != nil {
 		return

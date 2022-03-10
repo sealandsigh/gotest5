@@ -369,26 +369,67 @@ type Login struct {
 //	}
 //}
 
-// gin可以构建中间件，但它只对注册过的路由函数起作用
-// 对于分组路由，嵌套使用中间件，可以限定中间件的作用范围
-// 中间件分为全局中间件，单路由中间件和群组中间件
-// gin中间件必须是一个 gin.HandlerFunc类型
-// 全局和局部中间件
-// 定义中间件
-func MiddleWare() gin.HandlerFunc {
-	return func(c *gin.Context) {
-		t := time.Now()
-		fmt.Println("中间件开始执行了")
-		// 设置变量到Context的key中，可以通过Get()获取
-		c.Set("request", "中间件")
-		// 执行函数
-		c.Next()
-		// 中间件执行完后续的一些事情
-		status := c.Writer.Status()
-		fmt.Println("中间件执行完毕", status)
-		t2 := time.Since(t)
-		fmt.Println("time", t2)
-	}
+//// gin可以构建中间件，但它只对注册过的路由函数起作用
+//// 对于分组路由，嵌套使用中间件，可以限定中间件的作用范围
+//// 中间件分为全局中间件，单路由中间件和群组中间件
+//// gin中间件必须是一个 gin.HandlerFunc类型
+//// 全局和局部中间件
+//// 定义中间件
+//func MiddleWare() gin.HandlerFunc {
+//	return func(c *gin.Context) {
+//		t := time.Now()
+//		fmt.Println("中间件开始执行了")
+//		// 设置变量到Context的key中，可以通过Get()获取
+//		c.Set("request", "中间件")
+//		// 执行函数
+//		c.Next()
+//		// 中间件执行完后续的一些事情
+//		status := c.Writer.Status()
+//		fmt.Println("中间件执行完毕", status)
+//		t2 := time.Since(t)
+//		fmt.Println("time", t2)
+//	}
+//}
+//
+//func main() {
+//	// 1. 创建路由
+//	// 默认使用了2个中间件Logger(), Recover()
+//	r := gin.Default()
+//	// 注册中间件
+//	r.Use(MiddleWare())
+//	// {}为了代码规范
+//	{
+//		r.GET("/middleware", func(c *gin.Context) {
+//			// 取值
+//			req, _ := c.Get("request")
+//			fmt.Println("request", req)
+//			// 页面接收
+//			c.JSON(200, gin.H{"request": req})
+//		})
+//		// 根路由后面是定义的局部的中间件
+//		r.GET("/middleware2", MiddleWare(), func(c *gin.Context) {
+//			// 取值
+//			req, _ := c.Get("request")
+//			fmt.Println("request", req)
+//			// 页面接收
+//			c.JSON(200, gin.H{"request": req})
+//		})
+//	}
+//
+//	err := r.Run(":8100")
+//	if err != nil {
+//		return
+//	}
+//}
+
+// 中间件练习题
+// 定义程序计时中间件，然后定义2个路由，执行函数后应该打印统计的执行时间
+func myTime(c *gin.Context) {
+	start := time.Now()
+	c.Next()
+	// 统计时间
+	since := time.Since(start)
+	fmt.Println("程序用时:", since)
 }
 
 func main() {
@@ -396,28 +437,23 @@ func main() {
 	// 默认使用了2个中间件Logger(), Recover()
 	r := gin.Default()
 	// 注册中间件
-	r.Use(MiddleWare())
-	// {}为了代码规范
+	r.Use(myTime)
+	// {} 为了规范代码
+	shoppingGroup := r.Group("/shopping")
 	{
-		r.GET("/middleware", func(c *gin.Context) {
-			// 取值
-			req, _ := c.Get("request")
-			fmt.Println("request", req)
-			// 页面接收
-			c.JSON(200, gin.H{"request": req})
-		})
-		// 根路由后面是定义的局部的中间件
-		r.GET("/middleware2", MiddleWare(), func(c *gin.Context) {
-			// 取值
-			req, _ := c.Get("request")
-			fmt.Println("request", req)
-			// 页面接收
-			c.JSON(200, gin.H{"request": req})
-		})
+		shoppingGroup.GET("/index", shopIndexHandler)
+		shoppingGroup.GET("/home", shopHomeHandler)
 	}
-
 	err := r.Run(":8100")
 	if err != nil {
 		return
 	}
+}
+
+func shopIndexHandler(c *gin.Context) {
+	time.Sleep(5 * time.Second)
+}
+
+func shopHomeHandler(c *gin.Context) {
+	time.Sleep(5 * time.Second)
 }

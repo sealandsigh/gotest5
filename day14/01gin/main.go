@@ -1,8 +1,8 @@
 package main
 
 import (
+	"fmt"
 	"github.com/gin-gonic/gin"
-	"log"
 	"time"
 )
 
@@ -340,28 +340,81 @@ type Login struct {
 //	}
 //}
 
-// 异步和同步
-// goroutine 机制可以方便的实现异步处理
-// 另外，在启动新的groutine时，不应该使用原始的 上下文，必须使用它的只读副本
+//// 异步和同步
+//// goroutine 机制可以方便的实现异步处理
+//// 另外，在启动新的groutine时，不应该使用原始的 上下文，必须使用它的只读副本
+//func main() {
+//	// 1. 创建路由
+//	// 默认使用了2个中间件Logger(), Recover()
+//	r := gin.Default()
+//	// 1. 异步
+//	r.GET("/long_async", func(c *gin.Context) {
+//		// 需要搞一个副本
+//		copyContext := c.Copy()
+//		// 异步处理
+//		go func() {
+//			time.Sleep(3 * time.Second)
+//			log.Println("异步执行" + copyContext.Request.URL.Path)
+//		}()
+//	})
+//	// 2. 同步
+//	r.GET("/long_sync", func(c *gin.Context) {
+//		time.Sleep(3 * time.Second)
+//		log.Println("同步执行" + c.Request.URL.Path)
+//	})
+//
+//	err := r.Run(":8100")
+//	if err != nil {
+//		return
+//	}
+//}
+
+// gin可以构建中间件，但它只对注册过的路由函数起作用
+// 对于分组路由，嵌套使用中间件，可以限定中间件的作用范围
+// 中间件分为全局中间件，单路由中间件和群组中间件
+// gin中间件必须是一个 gin.HandlerFunc类型
+// 全局和局部中间件
+// 定义中间件
+func MiddleWare() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		t := time.Now()
+		fmt.Println("中间件开始执行了")
+		// 设置变量到Context的key中，可以通过Get()获取
+		c.Set("request", "中间件")
+		// 执行函数
+		c.Next()
+		// 中间件执行完后续的一些事情
+		status := c.Writer.Status()
+		fmt.Println("中间件执行完毕", status)
+		t2 := time.Since(t)
+		fmt.Println("time", t2)
+	}
+}
+
 func main() {
 	// 1. 创建路由
 	// 默认使用了2个中间件Logger(), Recover()
 	r := gin.Default()
-	// 1. 异步
-	r.GET("/long_async", func(c *gin.Context) {
-		// 需要搞一个副本
-		copyContext := c.Copy()
-		// 异步处理
-		go func() {
-			time.Sleep(3 * time.Second)
-			log.Println("异步执行" + copyContext.Request.URL.Path)
-		}()
-	})
-	// 2. 同步
-	r.GET("/long_sync", func(c *gin.Context) {
-		time.Sleep(3 * time.Second)
-		log.Println("同步执行" + c.Request.URL.Path)
-	})
+	// 注册中间件
+	r.Use(MiddleWare())
+	// {}为了代码规范
+	{
+		r.GET("/middleware", func(c *gin.Context) {
+			// 取值
+			req, _ := c.Get("request")
+			fmt.Println("request", req)
+			// 页面接收
+			c.JSON(200, gin.H{"request": req})
+		})
+		// 根路由后面是定义的局部的中间件
+		r.GET("/middleware2", MiddleWare(), func(c *gin.Context) {
+			// 取值
+			req, _ := c.Get("request")
+			fmt.Println("request", req)
+			// 页面接收
+			c.JSON(200, gin.H{"request": req})
+		})
+	}
 
 	err := r.Run(":8100")
 	if err != nil {

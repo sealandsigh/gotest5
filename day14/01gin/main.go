@@ -2,6 +2,7 @@ package main
 
 import (
 	"github.com/gin-gonic/gin"
+	"net/http"
 )
 
 type Login struct {
@@ -301,21 +302,36 @@ type Login struct {
 //	}
 //}
 
-// html模板渲染
-// gin 支持加载html模板，然后根据模板参数进行配置并返回相应的数据，本质上就是字符串的转换
-// loadHTMLGlob()方法可以加载模板文件
+//// html模板渲染
+//// gin 支持加载html模板，然后根据模板参数进行配置并返回相应的数据，本质上就是字符串的转换
+//// loadHTMLGlob()方法可以加载模板文件
+//
+//func main() {
+//	// 1. 创建路由
+//	// 默认使用了2个中间件Logger(), Recover()
+//	r := gin.Default()
+//	// 加载模板文件
+//	r.LoadHTMLGlob("templates/*")
+//	//r.LoadHTMLFiles("templates/index.tmpl")
+//	r.GET("index", func(c *gin.Context) {
+//		// 根据文件名渲染
+//		// 最终json将title替换
+//		c.HTML(200, "index.tmpl", gin.H{"title": "我的标题"})
+//	})
+//	err := r.Run(":8100")
+//	if err != nil {
+//		return
+//	}
+//}
 
+// 重定向
 func main() {
 	// 1. 创建路由
 	// 默认使用了2个中间件Logger(), Recover()
 	r := gin.Default()
-	// 加载模板文件
-	r.LoadHTMLGlob("templates/*")
-	//r.LoadHTMLFiles("templates/index.tmpl")
-	r.GET("index", func(c *gin.Context) {
-		// 根据文件名渲染
-		// 最终json将title替换
-		c.HTML(200, "index.tmpl", gin.H{"title": "我的标题"})
+
+	r.GET("/redirect", func(c *gin.Context) {
+		c.Redirect(http.StatusMovedPermanently, "http://www.baidu.com")
 	})
 	err := r.Run(":8100")
 	if err != nil {

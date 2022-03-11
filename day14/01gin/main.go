@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"github.com/gin-gonic/gin"
-	"time"
 )
 
 type Login struct {
@@ -422,38 +421,72 @@ type Login struct {
 //	}
 //}
 
-// 中间件练习题
-// 定义程序计时中间件，然后定义2个路由，执行函数后应该打印统计的执行时间
-func myTime(c *gin.Context) {
-	start := time.Now()
-	c.Next()
-	// 统计时间
-	since := time.Since(start)
-	fmt.Println("程序用时:", since)
-}
+//// 中间件练习题
+//// 定义程序计时中间件，然后定义2个路由，执行函数后应该打印统计的执行时间
+//func myTime(c *gin.Context) {
+//	start := time.Now()
+//	c.Next()
+//	// 统计时间
+//	since := time.Since(start)
+//	fmt.Println("程序用时:", since)
+//}
+//
+//func main() {
+//	// 1. 创建路由
+//	// 默认使用了2个中间件Logger(), Recover()
+//	r := gin.Default()
+//	// 注册中间件
+//	r.Use(myTime)
+//	// {} 为了规范代码
+//	shoppingGroup := r.Group("/shopping")
+//	{
+//		shoppingGroup.GET("/index", shopIndexHandler)
+//		shoppingGroup.GET("/home", shopHomeHandler)
+//	}
+//	err := r.Run(":8100")
+//	if err != nil {
+//		return
+//	}
+//}
+//
+//func shopIndexHandler(c *gin.Context) {
+//	time.Sleep(5 * time.Second)
+//}
+//
+//func shopHomeHandler(c *gin.Context) {
+//	time.Sleep(5 * time.Second)
+//}
+
+// cookie是什么
+// http是无状态协议，服务器不能记录浏览器的访问状态，也就是说服务器不能区分两次请求是否是由同一个客户端发出
+// cookie 就是解决http协议状态的方案之一，中文是小甜饼的意思
+// cookie 实际上就是服务器存在浏览器上的一段信息，浏览器有了cookie之后，每次向服务器发送请求时将该信息发送服务器，服务器收到请求之后，就可以根据该信息处理请求
+// cookie 由服务器创建，并发送给浏览器，最终由浏览器保存
 
 func main() {
 	// 1. 创建路由
 	// 默认使用了2个中间件Logger(), Recover()
 	r := gin.Default()
-	// 注册中间件
-	r.Use(myTime)
-	// {} 为了规范代码
-	shoppingGroup := r.Group("/shopping")
-	{
-		shoppingGroup.GET("/index", shopIndexHandler)
-		shoppingGroup.GET("/home", shopHomeHandler)
-	}
+	// 服务端要给客户端cookie
+	r.GET("/cookie", func(c *gin.Context) {
+		// 获取客户端是否携带cookie
+		cookie, err := c.Cookie("key_cookie")
+		if err != nil {
+			cookie = "NotSet"
+			// 给客户端设置cookie
+			// maxAge int 单位为秒
+			// path cookie所在目录
+			// domain string 域名
+			// secure 是否能通过https访问
+			// httpOnly bool 是否允许别人通过js获取cookie
+			c.SetCookie("key_cookie", "value_cookie", 60,
+				"/", "localhost", false, true)
+		}
+		fmt.Printf("cookie的值是: %s\n", cookie)
+	})
+
 	err := r.Run(":8100")
 	if err != nil {
 		return
 	}
-}
-
-func shopIndexHandler(c *gin.Context) {
-	time.Sleep(5 * time.Second)
-}
-
-func shopHomeHandler(c *gin.Context) {
-	time.Sleep(5 * time.Second)
 }

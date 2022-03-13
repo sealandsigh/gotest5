@@ -527,3 +527,9 @@ func main() {
 		return
 	}
 }
+
+// --------------------------
+// 设计一个通用的session，支持内存和redis存储
+// session 模块设计
+// 本质上是K-V系统，通过key进行增删改查
+// session可以存储在内存或者redis(2个版本)

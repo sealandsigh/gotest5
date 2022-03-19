@@ -39,7 +39,7 @@ func (m *MemorySession) Set(key string, value interface{}) (err error) {
 	return
 }
 
-func (m *MemorySession) Get(key string, value interface{}) (err error) {
+func (m *MemorySession) Get(key string) (value interface{}, err error) {
 	// 加锁
 	m.rwlock.Lock()
 	defer m.rwlock.Unlock()
@@ -52,7 +52,7 @@ func (m *MemorySession) Get(key string, value interface{}) (err error) {
 	return
 }
 
-func (m *MemorySession) Del(key string, value interface{}) (err error) {
+func (m *MemorySession) Del(key string) (err error) {
 	// 加锁
 	m.rwlock.Lock()
 	defer m.rwlock.Unlock()
@@ -60,6 +60,6 @@ func (m *MemorySession) Del(key string, value interface{}) (err error) {
 	return
 }
 
-func (m *MemorySession) Save(key string, value interface{}) (err error) {
+func (m *MemorySession) Save() (err error) {
 	return
 }

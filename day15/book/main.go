@@ -13,10 +13,10 @@ func main() {
 	}
 	r := gin.Default()
 	// 加载页面
-	r.LoadHTMLGlob("./gotest5/day15/book/templates/*")
+	r.LoadHTMLGlob("templates/*")
 	// 查询所有图书
 	r.GET("/book/list", bookListHandler)
-	_ = r.Run("8100")
+	_ = r.Run(":8100")
 }
 
 func bookListHandler(c *gin.Context) {

@@ -1,6 +1,9 @@
 package db
 
-import "github.com/sealandsigh/gotest5/day15/blog/model"
+import (
+	"github.com/jmoiron/sqlx"
+	"github.com/sealandsigh/gotest5/day15/blog/model"
+)
 
 // 添加分类
 
@@ -20,5 +23,25 @@ func GetCategoryById(id int64) (category *model.Category, err error) {
 	category = &model.Category{}
 	sqlstr := "select id,category_name,category_no from category where id=?"
 	err = DB.Get(category, sqlstr, id)
+	return
+}
+
+// 获取多个分类
+
+func GetCategoryList(categoryIds []int64) (categoryList []*model.Category, err error) {
+	sqlstr, args, err := sqlx.In("select id,category_name,category_no from category where id in (?)", categoryIds)
+	if err != nil {
+		return
+	}
+	// 查询
+	err = DB.Select(&categoryList, sqlstr, args...)
+	return
+}
+
+// 获取所有类型
+
+func GetAllCategoryList() (categoryList []*model.Category, err error) {
+	sqlstr := "select id,category_name,category_no from category order by category_no asc"
+	err = DB.Select(&categoryList, sqlstr)
 	return
 }

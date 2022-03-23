@@ -1,6 +1,9 @@
 package db
 
-import "github.com/sealandsigh/gotest5/day15/blog/model"
+import (
+	"database/sql"
+	"github.com/sealandsigh/gotest5/day15/blog/model"
+)
 
 // 插入文章
 
@@ -9,12 +12,14 @@ func InsertArticle(article *model.ArticleDetail) (articleId int64, err error) {
 	if article == nil {
 		return
 	}
+	var result sql.Result
 	sqlstr := `insert into
 				article(content,summary,title,username,category_id,view_count,
-				comment_count) value(?,?,?,?,?,?,?)`
-	result, err := DB.Exec(sqlstr, article.Content, article.Summary, article.Title, article.Username, article.ArticleInfo.CategoryId,
-		article.ViewCount, article.CommentCount)
+				comment_count) values(?,?,?,?,?,?,?)`
+	result, err = DB.Exec(sqlstr, article.Content, article.Summary, article.Title, article.Username, article.ArticleInfo.CategoryId,
+		article.ArticleInfo.ViewCount, article.ArticleInfo.CommentCount)
 	if err != nil {
+		//fmt.Println(err)
 		return
 	}
 	articleId, err = result.LastInsertId()
@@ -30,7 +35,7 @@ func GetArticleList(pageNum, pageSize int) (articleList []*model.ArticleInfo, er
 	// 时间降序排序
 	sqlstr := `select
 				id,summary,title,view_count,create_time,comment_count,username,category_id
-			form
+			from
 				article
 			where
 				status=1
@@ -46,6 +51,7 @@ func GetArticleDetail(articleId int64) (articleDetail *model.ArticleDetail, err 
 	if articleId < 0 {
 		return
 	}
+	articleDetail = &model.ArticleDetail{}
 	sqlstr := `select
 				id,summary,title,view_count,content,create_time,comment_count,username,category_id
 			from
@@ -54,7 +60,7 @@ func GetArticleDetail(articleId int64) (articleDetail *model.ArticleDetail, err 
 				id=?
 			and
 				status=1`
-	err = DB.Get(&articleDetail, sqlstr, articleId)
+	err = DB.Get(articleDetail, sqlstr, articleId)
 	return
 }
 
@@ -67,7 +73,7 @@ func GetArticleListByCategoryId(categoryId, pageNum, pageSize int) (articleList 
 	// 时间降序排序
 	sqlstr := `select
 				id,summary,title,view_count,create_time,comment_count,username,category_id
-			form
+			from
 				article
 			where
 				status=1

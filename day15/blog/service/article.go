@@ -58,3 +58,40 @@ func getCategoryIds(articleInfoList []*model.ArticleInfo) (ids []int64) {
 	}
 	return
 }
+
+// 根据分类id，获取该类文章和对应的分类信息
+
+func GetArticleRecordListById(categoryId int, pageNum, pageSize int) (articleRecordList []*model.ArticleRecord, err error) {
+	// 1. 获取文章列表
+	articleInfoList, err := db.GetArticleListByCategoryId(categoryId, pageNum, pageSize)
+	if err != nil {
+		return
+	}
+	if len(articleInfoList) <= 0 {
+		return
+	}
+	// 2. 获取文章对应的分类(多个)
+	categoryIds := getCategoryIds(articleInfoList)
+	categoryList, err := db.GetCategoryList(categoryIds)
+	if err != nil {
+		return
+	}
+	// 返回页面，做聚合
+	// 遍历所有文章
+	for _, articl := range articleInfoList {
+		// 根据当前文章，生成结构体
+		articleRecord := &model.ArticleRecord{
+			ArticleInfo: *articl,
+		}
+		// 文章取出分类id
+		categoryId := articl.CategoryId
+		// 遍历分类列表
+		for _, category := range categoryList {
+			if categoryId == category.CategoryId {
+				articleRecord.Category = *category
+			}
+		}
+		articleRecordList = append(articleRecordList, articleRecord)
+	}
+	return
+}

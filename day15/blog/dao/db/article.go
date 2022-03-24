@@ -46,7 +46,6 @@ func GetArticleList(pageNum, pageSize int) (articleList []*model.ArticleInfo, er
 }
 
 // 根据文章id，查询单个文章
-
 func GetArticleDetail(articleId int64) (articleDetail *model.ArticleDetail, err error) {
 	if articleId < 0 {
 		return
@@ -61,7 +60,7 @@ func GetArticleDetail(articleId int64) (articleDetail *model.ArticleDetail, err 
 			and
 				status=1`
 	err = DB.Get(articleDetail, sqlstr, articleId)
-	return
+	return articleDetail, err
 }
 
 // 根据分类id，查询这一类的文章

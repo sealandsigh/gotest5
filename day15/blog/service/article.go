@@ -50,7 +50,9 @@ func getCategoryIds(articleInfoList []*model.ArticleInfo) (ids []int64) {
 		// 从当前文章中取出分类id
 		categoryId := article.CategoryId
 		// 去重，防止重复
+		ids = append(ids, categoryId)
 		for _, id := range ids {
+			// 看当前id是否存在
 			if id != categoryId {
 				ids = append(ids, categoryId)
 			}

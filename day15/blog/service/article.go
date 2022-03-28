@@ -50,6 +50,7 @@ func getCategoryIds(articleInfoList []*model.ArticleInfo) (ids []int64) {
 		// 从当前文章中取出分类id
 		categoryId := article.CategoryId
 		// 去重，防止重复
+		// 这里需要注意下逻辑问题，下面的ids需要先赋值下，否则循环会有问题，或者在for循环后添加以下语句也可解决。
 		ids = append(ids, categoryId)
 		for _, id := range ids {
 			// 看当前id是否存在
